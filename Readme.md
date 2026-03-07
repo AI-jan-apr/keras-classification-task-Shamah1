@@ -1,23 +1,33 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/pj8M188g)
-# Classification Task
+# Breast Cancer Classification Task
 
-## Task
+Binary classification model to predict whether a tumor is **Benign** or **Malignant**.
 
-Solve the classification task using the provided notebook:
-
-```
-keras-classification-task.ipynb
-```
-
-After completing the task, deploy your trained model using FastAPI.
+## Dataset
+Breast Cancer Wisconsin — 569 samples, 30 features, 2 classes (212 Malignant, 357 Benign)
 
 ## Project Structure
-
-Your project should follow this structure:
-
 ```
 keras-classification-task.ipynb
 deploy.py
 model_weights.pkl
 scaler_weights.pkl
 ```
+
+## Model
+- Architecture: Dense(30) → Dropout(0.2) → Dense(15) → Dropout(0.2) → Dense(1)
+- Optimizer: Adam | Loss: Binary Crossentropy
+- Techniques: Early Stopping + Dropout
+- Accuracy: ~95%
+
+## Run API
+```
+uvicorn deploy:app --reload
+```
+
+## Endpoints
+
+**POST** `/predict` — send 30 features, saves prediction internally
+
+**GET** `/result` — returns last saved prediction
+
+**GET** `/evaluate` — returns model performance metrics
