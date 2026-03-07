@@ -48,10 +48,12 @@ def predict(data: TumorData):
     prediction = model.predict(X)[0][0]
     result['prediction'] = 'Malignant' if prediction > 0.5 else 'Benign'
     result['probability'] = round(float(prediction), 4)
-    return result
+    return {'message': 'Prediction saved successfully'}
 
 @app.get('/result')
 def get_result():
+    if not result:
+        return {'message': 'No predictions yet'}
     return result
 
 @app.get('/evaluate')
